@@ -1,9 +1,11 @@
+
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   kotlin ("jvm") version "1.6.10"
+  kotlin("kapt") version "1.6.10"
   application
   id("com.github.johnrengelman.shadow") version "7.0.0"
 }
@@ -31,8 +33,10 @@ application {
 dependencies {
   implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
   implementation("io.vertx:vertx-service-proxy")
+  implementation("io.vertx:vertx-codegen")
   implementation("io.vertx:vertx-lang-kotlin")
   implementation(kotlin("stdlib-jdk8"))
+  kapt("io.vertx:vertx-codegen:$vertxVersion:processor")
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }
